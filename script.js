@@ -1,8 +1,8 @@
 let carrito = [];
 let total = 0;
 let epoca = "antigua";
+let mostrarTodo = false;
 
-// ================= IMÁGENES =================
 const imagenes = {
     "grand theft auto v": "img/gta5.jpg",
     "deus ex human revolution": "img/deus_ex.jpg",
@@ -18,7 +18,6 @@ const imagenes = {
     "cyberpunk 2077": "img/cyberpunk2077.jpg"
 };
 
-// ================= NORMALIZAR TEXTO =================
 function normalizar(texto) {
     return (texto || "")
         .toLowerCase()
@@ -26,92 +25,151 @@ function normalizar(texto) {
         .replace(/\s+/g, " ");
 }
 
-// ================= CARGA =================
 async function cargarJuegos() {
 
-    const res = await fetch(epoca + ".txt");
-    const data = await res.text();
+    try {
 
-    let html = "";
+        const res = await fetch(epoca + ".txt");
 
-    data.trim().split("\n").forEach(linea => {
+        if (!res.ok) {
+            throw new Error("No se pudo cargar " + epoca + ".txt");
+        }
 
-        if (!linea.trim()) return;
+        const data = await res.text();
 
-        const d = linea.split(";");
+        let html = "";
 
-        const nombre = (d[0] || "").trim();
-        const precio = parseFloat(d[3]) || 0;
+        const lineas = data.trim().split("\n");
 
-        const key = normalizar(nombre);
-        const img = imagenes[key] || "img/default.jpg";
+        lineas.forEach((linea, indice) => {
 
-        html += `
-        <div class="juego">
+            if (!mostrarTodo && indice >= 3) return;
 
-            <img src="${img}" alt="${nombre}">
+            const d = linea.split(";");
 
-            <h3>${nombre}</h3>
+            const nombre = (d[0] || "").trim();
+            const precio = parseFloat(d[3]) || 0;
 
-            <p>$${precio.toFixed(2)}</p>
+            const key = normalizar(nombre);
+            const img = imagenes[key] || "img/default.jpg";
 
-            <button class="btn-add"
-                data-nombre="${nombre}"
-                data-precio="${precio}">
-                Agregar
-            </button>
+            html += `
+            <div class="juego">
 
-        </div>
-        `;
-    });
+                <img src="${img}" alt="${nombre}">
 
-    document.getElementById("catalogo").innerHTML = html;
+                <h3>${nombre}</h3>
+
+                <p><b>Precio:</b> USD ${precio.toFixed(2)}</p>
+
+                <button class="btn-add"
+                    data-nombre="${nombre}"
+                    data-precio="${precio}">
+                    Agregar al carrito
+                </button>
+
+            </div>
+            `;
+        });
+
+        document.getElementById("catalogo").innerHTML = html;
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("catalogo").innerHTML =
+            "<p>Error cargando juegos.</p>";
+    }
 }
 
-// ================= ÉPOCA =================
 function seleccionarEpoca(e) {
     epoca = e;
+    mostrarTodo = false;
     cargarJuegos();
 }
 
-// ================= CARRITO =================
+function mostrarMas() {
+    mostrarTodo = true;
+    cargarJuegos();
+}
+
 function agregar(nombre, precio) {
-    carrito.push({ nombre, precio: Number(precio) });
+
+    carrito.push({
+        nombre,
+        precio: Number(precio)
+    });
+
     total += Number(precio);
+
     actualizar();
 }
 
-function eliminar(i) {
-    total -= carrito[i].precio;
-    carrito.splice(i, 1);
+function eliminar(indice) {
+
+    total -= carrito[indice].precio;
+
+    carrito.splice(indice, 1);
+
     actualizar();
 }
 
 function actualizar() {
 
-    document.getElementById("cantidadCarrito").innerText = carrito.length;
+    document.getElementById("cantidadCarrito").textContent =
+        carrito.length;
 
     const lista = document.getElementById("listaCarrito");
+
     lista.innerHTML = "";
 
-    carrito.forEach((j, i) => {
+    carrito.forEach((juego, indice) => {
 
         const div = document.createElement("div");
+
         div.className = "itemCarrito";
 
         div.innerHTML = `
-            ${j.nombre} - $${j.precio.toFixed(2)}
-            <button onclick="eliminar(${i})">❌</button>
+            ${juego.nombre}
+            - USD ${juego.precio.toFixed(2)}
+
+            <button onclick="eliminar(${indice})">
+                ❌
+            </button>
         `;
 
         lista.appendChild(div);
     });
 
     document.getElementById("total").innerHTML =
-        "<b>Total: $" + total.toFixed(2) + "</b>";
+        `<b>Total: USD ${total.toFixed(2)}</b>`;
 }
 
-// ================= BOTONES =================
+function buscarJuego() {
+
+    const texto = document
+        .getElementById("buscar")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const juegos = document.querySelectorAll(".juego");
+
+    juegos.forEach(juego => {
+
+        const nombre = juego
+            .querySelector("h3")
+            .textContent
+            .toLowerCase();
+
+        juego.style.display =
+            nombre.includes(texto)
+                ? "block"
+                : "none";
+    });
+}
+
 document.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("btn-add")) {
@@ -121,20 +179,26 @@ document.addEventListener("click", (e) => {
 
         agregar(nombre, precio);
 
-        e.target.innerText = "Agregado ✔";
         e.target.disabled = true;
+        e.target.textContent = "Agregado ✔";
     }
 });
 
-// ================= PAGAR =================
 function pagar() {
 
     if (carrito.length === 0) {
-        alert("Carrito vacío");
+
+        alert("El carrito está vacío.");
         return;
     }
 
-    alert("Compra realizada ✔");
+    const nombres = carrito.map(j => j.nombre).join("\n");
+
+    alert(
+        "Gracias por su compra.\n\n" +
+        "Juegos comprados:\n" +
+        nombres
+    );
 
     carrito = [];
     total = 0;
@@ -142,8 +206,10 @@ function pagar() {
     actualizar();
 }
 
-// ================= INICIO =================
 window.onload = () => {
+
     cargarJuegos();
     actualizar();
+
+    console.log("Script cargado correctamente");
 };
