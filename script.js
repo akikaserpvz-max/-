@@ -1,149 +1,148 @@
-let carrito = [];
-let total = 0;
-let epoca = "antigua";
-
-// ================= IMÁGENES =================
 const imagenes = {
-    "grand theft auto v": "img/gta5.jpg",
-    "deus ex human revolution": "img/deus_ex.jpg",
-    "detroit become human": "img/detroit.jpg",
-    "assassin's creed origins": "img/ac_origins.jpg",
-    "ryse: son of rome": "img/ryse.jpg",
-    "total war: rome ii": "img/rome2.jpg",
-    "kingdom come deliverance": "img/kingdom_come.jpg",
-    "a plague tale innocence": "img/plague_tale.jpg",
-    "crusader kings iii": "img/ck3.jpg",
-    "mafia definitive edition": "img/mafia.jpg",
-    "l.a. noire": "img/lanoire.jpg",
-    "cyberpunk 2077": "img/cyberpunk2077.jpg"
+    "Assassin's Creed Origins": "img/ac_origins.jpg",
+    "Ryse: Son of Rome": "img/ryse.jpg",
+    "Total War: Rome II": "img/rome2.jpg",
+    "Kingdom Come Deliverance": "img/kingdom_come.jpg",
+    "A Plague Tale Innocence": "img/plague_tale.jpg",
+    "Crusader Kings III": "img/ck3.jpg",
+    "Mafia Definitive Edition": "img/mafia.jpg",
+    "L.A. Noire": "img/lanoire.jpg",
+    "Grand Theft Auto V": "img/gta5.jpg",
+    "Cyberpunk 2077": "img/cyberpunk2077.jpg",
+    "Deus Ex Human Revolution": "img/deus_ex.jpg",
+    "Detroit Become Human": "img/detroit.jpg"
 };
 
-// ================= NORMALIZAR TEXTO =================
-function normalizar(texto) {
-    return (texto || "")
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, " ");
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let total = 0;
+let epocaSeleccionada = "antigua";
+let mostrarTodos = false;
+
+function guardarCarrito(){
+    localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// ================= CARGA =================
-async function cargarJuegos() {
+async function cargarJuegos(){
 
-    const res = await fetch(epoca + ".txt");
+    const res = await fetch(epocaSeleccionada + ".txt");
     const data = await res.text();
+
+    const lineas = data.trim().split("\n");
 
     let html = "";
 
-    data.trim().split("\n").forEach(linea => {
+    for(let i = 0; i < lineas.length; i++){
 
-        if (!linea.trim()) return;
+        if(!mostrarTodos && i >= 3) continue;
 
-        const d = linea.split(";");
+        const d = lineas[i].split(";");
 
-        const nombre = (d[0] || "").trim();
-        const precio = parseFloat(d[3]) || 0;
+        const nombre = d[0];
+        const epoca = d[1];
+        const tam = d[2];
+        const precio = parseFloat(d[3]);
+        const anio = d[4];
 
-        const key = normalizar(nombre);
-        const img = imagenes[key] || "img/default.jpg";
+        const img = imagenes[nombre] || "img/sin.jpg";
 
         html += `
         <div class="juego">
 
-            <img src="${img}" alt="${nombre}">
+            <img src="${img}">
 
-            <h3>${nombre}</h3>
+            <div class="info">
 
-            <p>$${precio.toFixed(2)}</p>
+                <h3>${nombre}</h3>
+                <p>${epoca}</p>
+                <p>${tam}</p>
+                <p>USD ${precio.toFixed(2)}</p>
+                <p>${anio}</p>
 
-            <button class="btn-add"
-                data-nombre="${nombre}"
-                data-precio="${precio}">
-                Agregar
-            </button>
+                <button onclick="agregar('${nombre}', ${precio})">
+                    Agregar
+                </button>
+
+            </div>
+
+        </div>
+        `;
+    }
+
+    document.getElementById("catalogo").innerHTML = html;
+}
+
+function seleccionarEpoca(e){
+    epocaSeleccionada = e;
+    mostrarTodos = false;
+    cargarJuegos();
+}
+
+function agregar(nombre, precio){
+
+    carrito.push({nombre, precio});
+    guardarCarrito();
+    actualizar();
+}
+
+function eliminar(i){
+
+    carrito.splice(i,1);
+    guardarCarrito();
+    actualizar();
+}
+
+function actualizar(){
+
+    document.getElementById("cantidadCarrito").innerText = carrito.length;
+
+    let html = "";
+    total = 0;
+
+    carrito.forEach((j,i)=>{
+
+        total += j.precio;
+
+        html += `
+        <div class="itemCarrito">
+
+            ${j.nombre} - USD ${j.precio.toFixed(2)}
+
+            <button onclick="eliminar(${i})">❌</button>
 
         </div>
         `;
     });
 
-    document.getElementById("catalogo").innerHTML = html;
+    document.getElementById("listaCarrito").innerHTML = html;
+
+    document.getElementById("total").innerHTML =
+        `<b>Total: USD ${total.toFixed(2)}</b>`;
 }
 
-// ================= ÉPOCA =================
-function seleccionarEpoca(e) {
-    epoca = e;
+function buscarJuego(){
+
+    const t = document.getElementById("buscar").value.toLowerCase();
+
+    document.querySelectorAll(".juego").forEach(j=>{
+
+        const nombre = j.querySelector("h3").innerText.toLowerCase();
+
+        j.style.display = nombre.includes(t) ? "block" : "none";
+    });
+}
+
+function mostrarMas(){
+    mostrarTodos = true;
     cargarJuegos();
 }
 
-// ================= CARRITO =================
-function agregar(nombre, precio) {
-    carrito.push({ nombre, precio: Number(precio) });
-    total += Number(precio);
-    actualizar();
+function irAPago(){
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    window.location.href = "pago.html";
 }
 
-function eliminar(i) {
-    total -= carrito[i].precio;
-    carrito.splice(i, 1);
-    actualizar();
-}
-
-function actualizar() {
-
-    document.getElementById("cantidadCarrito").innerText = carrito.length;
-
-    const lista = document.getElementById("listaCarrito");
-    lista.innerHTML = "";
-
-    carrito.forEach((j, i) => {
-
-        const div = document.createElement("div");
-        div.className = "itemCarrito";
-
-        div.innerHTML = `
-            ${j.nombre} - $${j.precio.toFixed(2)}
-            <button onclick="eliminar(${i})">❌</button>
-        `;
-
-        lista.appendChild(div);
-    });
-
-    document.getElementById("total").innerHTML =
-        "<b>Total: $" + total.toFixed(2) + "</b>";
-}
-
-// ================= BOTONES =================
-document.addEventListener("click", (e) => {
-
-    if (e.target.classList.contains("btn-add")) {
-
-        const nombre = e.target.dataset.nombre;
-        const precio = parseFloat(e.target.dataset.precio);
-
-        agregar(nombre, precio);
-
-        e.target.innerText = "Agregado ✔";
-        e.target.disabled = true;
-    }
-});
-
-// ================= PAGAR =================
-function pagar() {
-
-    if (carrito.length === 0) {
-        alert("Carrito vacío");
-        return;
-    }
-
-    alert("Compra realizada ✔");
-
-    carrito = [];
-    total = 0;
-
-    actualizar();
-}
-
-// ================= INICIO =================
-window.onload = () => {
+window.onload = ()=>{
     cargarJuegos();
     actualizar();
 };
