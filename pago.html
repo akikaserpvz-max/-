@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,10 +18,12 @@
 
     <h2 id="totalFinal"></h2>
 
-    <button onclick="finalizar()">Confirmar compra</button>
+    <button type="button" onclick="finalizar()">
+        Confirmar compra
+    </button>
 
     <a href="index.html">
-        <button>Volver</button>
+        <button type="button">Volver</button>
     </a>
 
 </div>
@@ -33,23 +36,38 @@ let total = 0;
 
 let html = "";
 
-carrito.forEach(j=>{
-    total += j.precio;
-    html += `<p>${j.nombre} - USD ${j.precio.toFixed(2)}</p>`;
+carrito.forEach(j => {
+
+    total += Number(j.precio);
+
+    html += `
+        <p>
+            ${j.nombre} - USD ${Number(j.precio).toFixed(2)}
+        </p>
+    `;
 });
 
 document.getElementById("resumen").innerHTML = html;
 
 document.getElementById("totalFinal").innerHTML =
-"Total: USD " + total.toFixed(2);
+    "Total: USD " + total.toFixed(2);
 
 function finalizar(){
+
+    if(carrito.length === 0){
+        alert("No hay productos en el carrito");
+        return;
+    }
 
     localStorage.removeItem("carrito");
 
     document.body.innerHTML = `
         <div style="text-align:center;padding:50px;">
             <h1>🎉 Gracias por su compra</h1>
+            <h2>Compra realizada con éxito</h2>
+            <a href="index.html">
+                <button>Volver a la tienda</button>
+            </a>
         </div>
     `;
 }
