@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>Pago</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Checkout</h1>
+
+<div id="resumen"></div>
+
+<h2 id="total"></h2>
+
+<button onclick="finalizar()">Confirmar compra</button>
+
+<script>
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+let total = 0;
+
+let html = "";
+
+carrito.forEach(j=>{
+    total += j.precio;
+    html += `<p>${j.nombre} - $${j.precio}</p>`;
+});
+
+document.getElementById("resumen").innerHTML = html;
+document.getElementById("total").innerText = "Total: $" + total;
+
+function finalizar(){
+    localStorage.removeItem("carrito");
+
+    document.body.innerHTML =
+        "<h1>🎉 Gracias por su compra</h1>";
+}
+
+</script>
+
+</body>
+</html>
