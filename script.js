@@ -1,23 +1,39 @@
+const imagenes = {
+    "Assassin's Creed Origins": "img/ac_origins.jpg",
+    "Ryse: Son of Rome": "img/ryse.jpg",
+    "Total War: Rome II": "img/rome2.jpg",
+    "Kingdom Come Deliverance": "img/kingdom_come.jpg",
+    "A Plague Tale Innocence": "img/plague_tale.jpg",
+    "Crusader Kings III": "img/ck3.jpg",
+    "Mafia Definitive Edition": "img/mafia.jpg",
+    "L.A. Noire": "img/lanoire.jpg",
+    "Grand Theft Auto V": "img/gta5.jpg",
+    "Cyberpunk 2077": "img/cyberpunk2077.jpg",
+    "Deus Ex Human Revolution": "img/deus_ex.jpg",
+    "Detroit Become Human": "img/detroit.jpg"
+};
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let total = 0;
+let epocaSeleccionada = "antigua";
+let mostrarTodos = false;
+
+function guardarCarrito() {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
 async function cargarJuegos() {
 
     try {
 
-        const archivo = epocaSeleccionada + ".txt";
-
-        const res = await fetch(archivo);
+        const res = await fetch(epocaSeleccionada + ".txt");
 
         if (!res.ok) {
-            throw new Error(
-                "No se encontró el archivo: " + archivo
-            );
+            throw new Error("No se pudo cargar el archivo");
         }
 
         const data = await res.text();
-
-        const lineas = data
-            .replace(/\r/g, "")
-            .trim()
-            .split("\n");
+        const lineas = data.trim().split("\n");
 
         let html = "";
 
@@ -38,29 +54,140 @@ async function cargarJuegos() {
             const img = imagenes[nombre] || "img/sin.jpg";
 
             html += `
-                <div class="juego">
+            <div class="juego">
 
-                    <img
-                        src="${img}"
-                        alt="${nombre}"
-                        onerror="this.src='img/sin.jpg'">
+                <img src="${img}"
+                     alt="${nombre}"
+                     onerror="this.src='img/sin.jpg'">
 
-                    <div class="info">
+                <div class="info">
 
-                        <h3>${nombre}</h3>
+                    <h3>${nombre}</h3>
 
-                        <p>Época: ${epoca}</p>
-                        <p>Tamaño: ${tam}</p>
-                        <p>USD ${precio.toFixed(2)}</p>
-                        <p>Año: ${anio}</p>
+                    <p>Época: ${epoca}</p>
+                    <p>Tamaño: ${tam}</p>
+                    <p>USD ${precio.toFixed(2)}</p>
+                    <p>Año: ${anio}</p>
 
-                        <button onclick='agregar(${JSON.stringify(nombre)}, ${precio})'>
-                            Agregar al carrito
-                        </button>
-
-                    </div>
+                    <button onclick='agregar(${JSON.stringify(nombre)}, ${precio})'>
+                        Agregar al carrito
+                    </button>
 
                 </div>
+
+            </div>
+            `;
+        }
+
+        document.getElementById("catalogo").innerHTML = html;
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("catalogo").innerHTML = `
+            <h2>Error al cargar los juegos</h2>
+        `;
+    }
+}
+
+function seleccionarEpoca(epoca) {
+    epocaSeleccionada = epoca;
+    mostrarTodos = false;
+    cargarJuegos();
+}
+
+function agregar(nombre, precio) {
+
+    carrito.push({
+        nombre: nombre,
+        precio: Number(precio)
+    });
+
+    guardarCarrito();
+    actualizar();
+
+    alert(nombre + " agregado al carrito");
+}
+
+function eliminar(i) {
+
+    carrito.splice(i, 1);
+
+    guardarCarrito();
+    actualizar();
+}
+
+function actualizar() {
+
+    document.getElementById("cantidadCarrito").innerText = carrito.length;
+
+    let html = "";
+    total = 0;
+
+    carrito.forEach((j, i) => {
+
+        total += Number(j.precio);
+
+        html += `
+        <div class="itemCarrito">
+
+            ${j.nombre} - USD ${Number(j.precio).toFixed(2)}
+
+            <button onclick="eliminar(${i})">
+                ❌
+            </button>
+
+        </div>
+        `;
+    });
+
+    document.getElementById("listaCarrito").innerHTML = html;
+
+    document.getElementById("total").innerHTML =
+        `<b>Total: USD ${total.toFixed(2)}</b>`;
+}
+
+function buscarJuego() {
+
+    const texto = document
+        .getElementById("buscar")
+        .value
+        .toLowerCase();
+
+    document.querySelectorAll(".juego").forEach(juego => {
+
+        const nombre = juego
+            .querySelector("h3")
+            .innerText
+            .toLowerCase();
+
+        juego.style.display =
+            nombre.includes(texto) ? "block" : "none";
+    });
+}
+
+function mostrarMas() {
+    mostrarTodos = true;
+    cargarJuegos();
+}
+
+function irAPago() {
+
+    if (carrito.length === 0) {
+        alert("El carrito está vacío");
+        return;
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    window.location.href = "pago.html";
+}
+
+window.onload = () => {
+    cargarJuegos();
+    actualizar();
+};                </div>
             `;
         }
 
