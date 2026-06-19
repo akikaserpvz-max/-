@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>Steam Login Fake</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="loginBody">
+
+<div class="loginBackground"></div>
+
+<div class="loginCard">
+
+    <h1>🎮 Iniciar sesión</h1>
+
+    <p class="sub">Accede a RetroJuegos</p>
+
+    <input type="text" id="user" placeholder="Usuario">
+
+    <input type="password" id="pass" placeholder="Contraseña">
+
+    <button onclick="login()">Entrar</button>
+
+    <p id="error"></p>
+
+</div>
+
+<script>
+function login(){
+
+    const u = document.getElementById("user").value;
+    const p = document.getElementById("pass").value;
+
+    if(!u || !p){
+        document.getElementById("error").innerText = "Completa los campos";
+        return;
+    }
+
+    localStorage.setItem("login","true");
+    localStorage.setItem("usuario",u);
+
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+
+</html>
