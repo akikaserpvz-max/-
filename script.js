@@ -1,5 +1,5 @@
 const imagenes = {
-    "Assassin's Creed Origins": "img/ac_origins.jpg",
+    "Assassins Creed Origins": "img/ac_origins.jpg",
     "Ryse: Son of Rome": "img/ryse.jpg",
     "Total War: Rome II": "img/rome2.jpg",
     "Kingdom Come Deliverance": "img/kingdom_come.jpg",
