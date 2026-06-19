@@ -2,67 +2,70 @@
 <html lang="es">
 
 <head>
-<meta charset="UTF-8">
-<title>RetroJuegos</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroJuegos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
 
-<div class="logo">🎮 RetroJuegos</div>
+    <div class="logo">🎮 RetroJuegos</div>
 
-<div class="buscador">
-    <input type="text" id="buscar" placeholder="Buscar...">
-    <button onclick="buscarJuego()">🔍</button>
-</div>
+    <div class="buscador">
+        <input type="text" id="buscar" placeholder="Buscar...">
+        <button onclick="buscarJuego()">🔍</button>
+    </div>
 
-<div class="carritoHeader">
-    🛒 <span id="cantidadCarrito">0</span>
-</div>
+    <div class="carritoHeader">
+        🛒 <span id="cantidadCarrito">0</span>
+    </div>
 
 </header>
 
 <main>
 
-<!-- ÉPOCAS -->
-<section class="filtros">
+    <section class="filtros">
 
-    <h2>Épocas</h2>
+        <h2>Épocas</h2>
 
-    <div class="epocas">
-        <button onclick="seleccionarEpoca('antigua')">Antigua</button>
-        <button onclick="seleccionarEpoca('medieval')">Medieval</button>
-        <button onclick="seleccionarEpoca('moderna')">Moderna</button>
-        <button onclick="seleccionarEpoca('futurista')">Futurista</button>
+        <div class="epocas">
+            <button onclick="seleccionarEpoca('antigua')">Antigua</button>
+            <button onclick="seleccionarEpoca('medieval')">Medieval</button>
+            <button onclick="seleccionarEpoca('moderna')">Moderna</button>
+            <button onclick="seleccionarEpoca('futurista')">Futurista</button>
+        </div>
+
+    </section>
+
+    <h2>Principales resultados</h2>
+
+    <div id="catalogo"></div>
+
+    <div class="masJuegos">
+        <button onclick="mostrarMas()">Más juegos</button>
     </div>
 
-</section>
+    <section class="carrito">
 
-<h2>Principales resultados</h2>
+        <h2>🛒 Carrito</h2>
 
-<div id="catalogo"></div>
+        <div id="listaCarrito"></div>
 
-<div class="masJuegos">
-    <button onclick="mostrarMas()">Más juegos</button>
-</div>
+        <p id="total"><b>Total: USD 0</b></p>
 
-<!-- CARRITO ÚNICO -->
-<section class="carrito">
+        <button type="button" onclick="irAPago()">Pagar</button>
 
-    <h2>🛒 Carrito</h2>
-
-    <div id="listaCarrito"></div>
-
-    <p id="total"><b>Total: USD 0</b></p>
-
-    <button onclick="pagar()">Pagar</button>
-
-</section>
+    </section>
 
 </main>
 
+<script src="script.js"></script>
+
+</body>
+</html>
 <script src="script.js"></script>
 
 </body>
