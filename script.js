@@ -8,13 +8,13 @@ const imagenes = {
     "deus ex human revolution": "img/deus_ex.jpg",
     "detroit become human": "img/detroit.jpg",
     "assassin's creed origins": "img/ac_origins.jpg",
-    "ryse son of rome": "img/ryse.jpg",
-    "total war rome ii": "img/rome2.jpg",
+    "ryse: son of rome": "img/ryse.jpg",
+    "total war: rome ii": "img/rome2.jpg",
     "kingdom come deliverance": "img/kingdom_come.jpg",
     "a plague tale innocence": "img/plague_tale.jpg",
     "crusader kings iii": "img/ck3.jpg",
     "mafia definitive edition": "img/mafia.jpg",
-    "l a noire": "img/lanoire.jpg",
+    "l.a. noire": "img/lanoire.jpg",
     "cyberpunk 2077": "img/cyberpunk2077.jpg"
 };
 
@@ -23,8 +23,6 @@ function normalizar(texto) {
     return (texto || "")
         .toLowerCase()
         .trim()
-        .replace(/:/g, "")
-        .replace(/\./g, "")
         .replace(/\s+/g, " ");
 }
 
@@ -40,9 +38,9 @@ async function cargarJuegos() {
 
         if (!linea.trim()) return;
 
-        const d = linea.split(";").map(x => x.trim());
+        const d = linea.split(";");
 
-        const nombre = d[0];
+        const nombre = (d[0] || "").trim();
         const precio = parseFloat(d[3]) || 0;
 
         const key = normalizar(nombre);
