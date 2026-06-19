@@ -1,4 +1,4 @@
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito = [];
 let total = 0;
 let epoca = "antigua";
 
@@ -35,8 +35,11 @@ async function cargarJuegos(){
 
         html += `
         <div class="juego">
+
             <img src="${img}">
+
             <h3>${nombre}</h3>
+
             <p>$${precio}</p>
 
             <button class="btn-add"
@@ -44,6 +47,7 @@ async function cargarJuegos(){
                 data-precio="${precio}">
                 Agregar
             </button>
+
         </div>
         `;
     });
@@ -74,12 +78,12 @@ function eliminar(i){
     actualizar();
 }
 
-// ================= ACTUALIZAR =================
 function actualizar(){
 
     document.getElementById("cantidadCarrito").innerText = carrito.length;
 
     const lista = document.getElementById("listaCarrito");
+
     lista.innerHTML = "";
 
     carrito.forEach((j,i)=>{
@@ -97,12 +101,9 @@ function actualizar(){
 
     document.getElementById("total").innerHTML =
         "<b>Total: $" + total.toFixed(2) + "</b>";
-
-    // 🔥 GUARDAR EN LOCALSTORAGE (CLAVE)
-    localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// ================= BOTONES =================
+// ================= BOTONES (ESTABLE) =================
 document.addEventListener("click", (e)=>{
 
     if(e.target.classList.contains("btn-add")){
@@ -125,14 +126,14 @@ function pagar(){
         return;
     }
 
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-
-    window.location.href = "pago.html";
+    alert("Compra realizada ✔");
+    carrito = [];
+    total = 0;
+    actualizar();
 }
 
 // ================= INICIO =================
 window.onload = ()=>{
-
     cargarJuegos();
     actualizar();
 };
