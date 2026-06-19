@@ -1,0 +1,182 @@
+/* ================= LOGIN ================= */
+
+.loginBody{
+
+    margin:0;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:
+    url("img/login-bg.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    position:relative;
+}
+
+.loginOverlay{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:
+    linear-gradient(
+        rgba(10,15,25,.75),
+        rgba(10,15,25,.92)
+    );
+}
+
+.loginCard{
+
+    position:relative;
+
+    z-index:2;
+
+    width:420px;
+
+    background:
+    rgba(23,29,37,.95);
+
+    border-radius:12px;
+
+    padding:40px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.7);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+}
+
+.loginLogo{
+
+    text-align:center;
+
+    margin-bottom:30px;
+}
+
+.loginLogo h1{
+
+    margin:0;
+
+    color:#66c0f4;
+
+    font-size:38px;
+
+    letter-spacing:3px;
+}
+
+.sub{
+
+    color:#8f98a0;
+
+    margin-top:10px;
+
+    font-size:14px;
+}
+
+.loginForm{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.loginForm label{
+
+    color:#8f98a0;
+
+    font-size:12px;
+
+    margin-bottom:5px;
+
+    margin-top:10px;
+
+    letter-spacing:1px;
+}
+
+.loginForm input{
+
+    padding:14px;
+
+    background:#32353c;
+
+    color:white;
+
+    border:
+    1px solid #4c4f56;
+
+    border-radius:5px;
+
+    font-size:15px;
+
+    margin-bottom:10px;
+}
+
+.loginForm input:focus{
+
+    outline:none;
+
+    border-color:#66c0f4;
+
+    box-shadow:
+    0 0 10px rgba(102,192,244,.25);
+}
+
+.loginForm button{
+
+    margin-top:15px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:5px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #06bfff,
+        #2d73ff
+    );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.loginForm button:hover{
+
+    transform:translateY(-2px);
+
+    filter:brightness(1.1);
+}
+
+#error{
+
+    text-align:center;
+
+    color:#ff6b6b;
+
+    margin-top:15px;
+
+    min-height:20px;
+}
