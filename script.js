@@ -29,15 +29,13 @@ async function cargarJuegos() {
         const res = await fetch(epocaSeleccionada + ".txt");
 
         if (!res.ok) {
-            throw new Error("No se pudo cargar el archivo");
+            throw new Error("No se encontró " + epocaSeleccionada + ".txt");
         }
 
         const data = await res.text();
         const lineas = data.trim().split("\n");
 
         let html = "";
-
-        window.juegosActuales = [];
 
         for (let i = 0; i < lineas.length; i++) {
 
@@ -53,16 +51,159 @@ async function cargarJuegos() {
             const precio = parseFloat(d[3]);
             const anio = d[4].trim();
 
-            window.juegosActuales.push({
-                nombre,
-                precio
-            });
-
-            const indice = window.juegosActuales.length - 1;
-
             const img = imagenes[nombre] || "img/sin.jpg";
 
             html += `
+                <div class="juego">
+
+                    <img
+                        src="${img}"
+                        alt="${nombre}"
+                        onerror="this.src='img/sin.jpg'">
+
+                    <div class="info">
+
+                        <h3>${nombre}</h3>
+
+                        <p>Época: ${epoca}</p>
+                        <p>Tamaño: ${tam}</p>
+                        <p>USD ${precio.toFixed(2)}</p>
+                        <p>Año: ${anio}</p>
+
+                        <button
+                            class="btnAgregar"
+                            data-nombre="${nombre}"
+                            data-precio="${precio}">
+                            Agregar al carrito
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+        }
+
+        document.getElementById("catalogo").innerHTML = html;
+
+        document.querySelectorAll(".btnAgregar").forEach(btn => {
+
+            btn.addEventListener("click", function () {
+
+                agregar(
+                    this.dataset.nombre,
+                    Number(this.dataset.precio)
+                );
+
+            });
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("catalogo").innerHTML = `
+            <h2>Error al cargar los juegos</h2>
+        `;
+    }
+}
+
+function seleccionarEpoca(epoca) {
+    epocaSeleccionada = epoca;
+    mostrarTodos = false;
+    cargarJuegos();
+}
+
+function agregar(nombre, precio) {
+
+    carrito.push({
+        nombre: nombre,
+        precio: Number(precio)
+    });
+
+    guardarCarrito();
+    actualizar();
+
+    alert(nombre + " agregado al carrito");
+}
+
+function eliminar(i) {
+
+    carrito.splice(i, 1);
+
+    guardarCarrito();
+    actualizar();
+}
+
+function actualizar() {
+
+    document.getElementById("cantidadCarrito").innerText = carrito.length;
+
+    let html = "";
+    total = 0;
+
+    carrito.forEach((j, i) => {
+
+        total += Number(j.precio);
+
+        html += `
+            <div class="itemCarrito">
+
+                ${j.nombre} - USD ${Number(j.precio).toFixed(2)}
+
+                <button onclick="eliminar(${i})">
+                    ❌
+                </button>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("listaCarrito").innerHTML = html;
+
+    document.getElementById("total").innerHTML =
+        `<b>Total: USD ${total.toFixed(2)}</b>`;
+}
+
+function buscarJuego() {
+
+    const texto = document
+        .getElementById("buscar")
+        .value
+        .toLowerCase();
+
+    document.querySelectorAll(".juego").forEach(juego => {
+
+        const nombre = juego
+            .querySelector("h3")
+            .innerText
+            .toLowerCase();
+
+        juego.style.display =
+            nombre.includes(texto) ? "block" : "none";
+    });
+}
+
+function mostrarMas() {
+    mostrarTodos = true;
+    cargarJuegos();
+}
+
+function irAPago() {
+
+    if (carrito.length === 0) {
+        alert("El carrito está vacío");
+        return;
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    window.location.href = "pago.html";
+}
+
+window.onload = function () {
+    cargarJuegos();
+    actualizar();
+};            html += `
             <div class="juego">
 
                 <img src="${img}"
