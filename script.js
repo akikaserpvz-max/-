@@ -156,6 +156,100 @@ function irAPago() {
 // ================== INICIO ==================
 window.onload = function () {
     cargarJuegos();
+};                <p>Año: ${j.anio}</p>
+                <p>USD ${j.precio.toFixed(2)}</p>
+
+                <button onclick='agregar(${JSON.stringify(j.nombre)}, ${j.precio})'>
+                    Agregar
+                </button>
+
+            </div>
+
+        </div>
+        `;
+    });
+
+    document.getElementById("catalogo").innerHTML = html;
+    actualizar();
+}
+
+// ================== FILTRO ==================
+function seleccionarEpoca(epoca) {
+    epocaSeleccionada = epoca;
+    cargarJuegos();
+}
+
+// ================== CARRITO ==================
+function agregar(nombre, precio) {
+
+    carrito.push({ nombre, precio: Number(precio) });
+    actualizar();
+}
+
+function eliminar(i) {
+    carrito.splice(i, 1);
+    actualizar();
+}
+
+// ================== ACTUALIZAR ==================
+function actualizar() {
+
+    document.getElementById("cantidadCarrito").innerText = carrito.length;
+
+    let html = "";
+    total = 0;
+
+    carrito.forEach((j, i) => {
+
+        total += j.precio;
+
+        html += `
+        <div class="itemCarrito">
+            ${j.nombre} - USD ${j.precio.toFixed(2)}
+            <button onclick="eliminar(${i})">❌</button>
+        </div>
+        `;
+    });
+
+    document.getElementById("listaCarrito").innerHTML = html;
+    document.getElementById("total").innerHTML =
+        `<b>Total: USD ${total.toFixed(2)}</b>`;
+}
+
+// ================== BUSCAR ==================
+function buscarJuego() {
+
+    const texto = document.getElementById("buscar").value.toLowerCase();
+
+    document.querySelectorAll(".juego").forEach(j => {
+
+        const nombre = j.querySelector("h3").innerText.toLowerCase();
+
+        j.style.display = nombre.includes(texto) ? "block" : "none";
+    });
+}
+
+// ================== MÁS ==================
+function mostrarMas() {
+    epocaSeleccionada = "todas";
+    cargarJuegos();
+}
+
+// ================== PAGO (IMPORTANTE: coincide con HTML) ==================
+function irAPago() {
+
+    if (carrito.length === 0) {
+        alert("El carrito está vacío");
+        return;
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    window.location.href = "pago.html";
+}
+
+// ================== INICIO ==================
+window.onload = function () {
+    cargarJuegos();
 };                    <h3>${juego.nombre}</h3>
                     <p>Época: ${juego.epoca}</p>
                     <p>Tamaño: ${juego.tam}</p>
