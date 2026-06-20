@@ -1,0 +1,315 @@
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0f1720;
+    color:white;
+}
+
+/* ================= HEADER ================= */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 20px;
+    background:#1b2838;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.buscador input{
+    padding:8px;
+    border-radius:5px;
+    border:none;
+}
+
+.buscador button{
+    padding:8px 12px;
+    background:#66c0f4;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+/* ================= ÉPOCAS ================= */
+.epocas{
+    margin:10px 0;
+}
+
+.epocas button{
+    padding:18px 28px;
+    margin:5px;
+    background:#2a475e;
+    border:none;
+    color:white;
+    cursor:pointer;
+    border-radius:6px;
+    font-size:15px;
+    transition:0.2s;
+}
+
+.epocas button:hover{
+    background:#66c0f4;
+    color:black;
+    transform:scale(1.05);
+}
+
+/* ================= TITULOS ================= */
+h2{
+    margin-left:20px;
+}
+
+/* ================= CATÁLOGO ================= */
+#catalogo{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+    padding:20px;
+}
+
+.juego{
+    background:#1b2838;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 0 10px rgba(0,0,0,0.4);
+    transition:0.2s;
+
+    opacity:0;
+    transform:translateY(20px);
+    animation:aparecer 0.4s ease forwards;
+}
+
+@keyframes aparecer{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.juego:hover{
+    transform:scale(1.03);
+}
+
+.juego img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.juego h3{
+    margin:10px;
+}
+
+.juego p{
+    margin:0 10px 10px;
+}
+
+.juego button{
+    width:90%;
+    margin:10px;
+    padding:10px;
+    background:#66c0f4;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+.juego button:hover{
+    background:white;
+}
+
+/* ================= BOTÓN MÁS JUEGOS ================= */
+.masJuegos{
+    display:flex;
+    justify-content:center;
+    margin:30px 0;
+}
+
+#btnMas{
+    padding:18px 50px;
+    font-size:18px;
+    background:#66c0f4;
+    border:none;
+    border-radius:10px;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.25s;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+#btnMas:hover{
+    background:white;
+    transform:scale(1.08);
+}
+
+/* ================= CARRITO ================= */
+.carrito{
+    margin:20px;
+    padding:20px;
+    background:#1b2838;
+    border-radius:10px;
+}
+
+.itemCarrito{
+    display:flex;
+    justify-content:space-between;
+    background:#2a475e;
+    padding:8px;
+    margin:5px 0;
+    border-radius:5px;
+}
+
+.carrito button{
+    background:#ff4d4d;
+    border:none;
+    color:white;
+    padding:5px 8px;
+    cursor:pointer;
+    border-radius:4px;
+}
+
+/* BOTÓN PAGAR */
+.carrito > button{
+    margin-top:10px;
+    width:100%;
+    padding:12px;
+    background:#66c0f4;
+    color:black;
+    font-weight:bold;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.carrito > button:hover{
+    background:white;
+}
+
+/* ================= LOGIN ================= */
+.loginBody{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.loginBackground{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(135deg,#0f1720,#1b2838,#0a0f18);
+    background-size:400% 400%;
+    animation:fondo 10s ease infinite;
+    z-index:-1;
+}
+
+@keyframes fondo{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.loginCard{
+    background:rgba(27,40,56,0.85);
+    backdrop-filter:blur(10px);
+    padding:40px;
+    border-radius:15px;
+    width:320px;
+    text-align:center;
+    box-shadow:0 0 30px rgba(0,0,0,0.6);
+}
+
+.loginCard input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:6px;
+}
+
+.loginCard button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:6px;
+    background:#66c0f4;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.loginCard button:hover{
+    background:#4aa3d8;
+}
+
+#error{
+    color:#ff4d4d;
+    margin-top:10px;
+}
+
+/* ================= PORTADA ================= */
+.inicioBody{
+    margin:0;
+    font-family:Arial;
+    height:100vh;
+    overflow:hidden;
+}
+
+.inicioFondo{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+    url("img/portada.jpg");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.inicioContenido{
+    position:relative;
+    z-index:2;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.inicioContenido h1{
+    font-size:65px;
+    margin-bottom:15px;
+    text-shadow:0 0 20px black;
+}
+
+.inicioContenido p{
+    font-size:22px;
+    max-width:700px;
+    margin-bottom:30px;
+}
+
+.botonInicio{
+    padding:18px 40px;
+    background:#66c0f4;
+    color:black;
+    text-decoration:none;
+    border-radius:10px;
+    font-size:20px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.botonInicio:hover{
+    background:white;
+    transform:scale(1.08);
+}
