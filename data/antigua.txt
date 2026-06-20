@@ -11,8 +11,8 @@ Hades;Antigua;10 GB;19.99;2020;img/hades.jpg
 Prince of Persia Sands of Time;Antigua;4 GB;7.99;2003;img/pop.jpg
 Civilization V;Antigua;8 GB;12.99;2010;img/civ5.jpg
 Civilization VI;Antigua;12 GB;29.99;2016;img/civ6.jpg
-Assassin's Creed Valhalla;Antigua;6 GB;9.99;2011;img/ac_valhalla.jpg
-Assassin's Creed Odyssey;Antigua;10 GB;14.99;2014;img/ac_oddysey.jpg
+Assassin's Creed Valhalla;Antigua;6 GB;47.99;2022;img/ac_valhalla.jpg
+Assassin's Creed Odyssey;Antigua;10 GB;35.99;2018;img/ac_oddysey.jpg
 Rome Total War;Antigua;2 GB;6.99;2004;img/rome1.jpg
 Age of Empires II;Antigua;2 GB;9.99;1999;img/aoe2.jpg
 Shadow of Rome;Antigua;7 GB;7.99;2005;img/shadowrome.jpg
