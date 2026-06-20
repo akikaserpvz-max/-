@@ -16,4 +16,4 @@ Far Cry 5;Moderna;40 GB;19.99;2018;img/farcry5.jpg
 Far Cry 6;Moderna;60 GB;29.99;2021;img/farcry6.jpg
 Life Is Strange Remastered Collection;Moderna;70 GB;39.99;2020;img/lis.jpg
 Spider-man Miles Morales;Moderna;45 GB;59.99;2019;img/spiderman.jpg
-The Last of Us Part II;Moderna;100 GB;39.99;2020;img/tlou2.jpg
+The Last of Us Part II Remastered;Moderna;100 GB;39.99;2020;img/tlou2.jpg
