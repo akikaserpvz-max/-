@@ -9,7 +9,7 @@ Halo Infinite;Futurista;50 GB;29.99;2021;img/halo.jpg
 Halo 5 Guardians;Futurista;45 GB;19.99;2015;img/halo5.jpg
 DOOM Eternal;Futurista;50 GB;29.99;2020;img/doom.jpg
 Titanfall 2;Futurista;45 GB;14.99;2016;img/titanfall2.jpg
-Destiny 2;Futurista;90 GB;0.00;2017;img/destiny2.jpg
+Destiny 2;Futurista;90 GB;28.99;2017;img/destiny2.jpg
 Control;Futurista;35 GB;19.99;2019;img/control.jpg
 The Outer Worlds;Futurista;40 GB;24.99;2019;img/outerworlds.jpg
 Prey;Futurista;30 GB;14.99;2017;img/prey.jpg
