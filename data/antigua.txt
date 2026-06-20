@@ -1,3 +1,18 @@
-Assassin's Creed Origins;Antigua;42 GB;39.99;2017;img/ac_origins.jpg
-Ryse: Son of Rome;Antigua;26 GB;29.99;2013;img/ryse.jpg
-Total War: Rome II;Antigua;35 GB;44.99;2013;img/rome2.jpg
+Assassin's Creed Origins;Antigua;45 GB;29.99;2017;img/ac_origins.jpg
+Ryse Son of Rome;Antigua;25 GB;19.99;2013;img/ryse.jpg
+Total War Rome II;Antigua;35 GB;24.99;2013;img/rome2.jpg
+Spartan Total Warrior;Antigua;8 GB;9.99;2005;img/spartan.jpg
+Imperator Rome;Antigua;20 GB;14.99;2019;img/imperator.jpg
+Age of Mythology;Antigua;3 GB;9.99;2002;img/aom.jpg
+God of War Ascension;Antigua;40 GB;19.99;2013;img/gow_ascension.jpg
+God of War 1;Antigua;5 GB;8.99;2005;img/gow1.jpg
+God of War 2;Antigua;6 GB;8.99;2007;img/gow2.jpg
+Hades (mitología);Antigua;10 GB;19.99;2020;img/hades.jpg
+Prince of Persia Sands of Time;Antigua;4 GB;7.99;2003;img/pop.jpg
+Civilization V;Antigua;8 GB;12.99;2010;img/civ5.jpg
+Civilization VI;Antigua;12 GB;29.99;2016;img/civ6.jpg
+Tropico 4;Antigua;6 GB;9.99;2011;img/tropico4.jpg
+Tropico 5;Antigua;10 GB;14.99;2014;img/tropico5.jpg
+Rome Total War;Antigua;2 GB;6.99;2004;img/rome1.jpg
+Age of Empires II;Antigua;2 GB;9.99;1999;img/aoe2.jpg
+Shadow of Rome;Antigua;7 GB;7.99;2005;img/shadowrome.jpg
