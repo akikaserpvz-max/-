@@ -1,0 +1,3 @@
+Cyberpunk 2077;futurista;70 GB;59.99;2020;img/cyberpunk.jpg
+Deus Ex Human Revolution;futurista;17 GB;19.99;2011;img/deus.jpg
+Detroit Become Human;futurista;55 GB;39.99;2018;img/detroit.j
