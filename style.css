@@ -223,3 +223,66 @@ h2{
     text-align:center;
     margin:20px;
 }
+/* ================= PORTADA ================= */
+
+.inicioBody{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    height:100vh;
+    overflow:hidden;
+}
+
+.inicioFondo{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+    url("img/portada.jpg");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.inicioContenido{
+    position:relative;
+    z-index:2;
+    height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+    color:white;
+    padding:20px;
+}
+
+.inicioContenido h1{
+    font-size:65px;
+    margin-bottom:15px;
+    text-shadow:0 0 20px black;
+}
+
+.inicioContenido p{
+    font-size:22px;
+    max-width:700px;
+    margin-bottom:30px;
+}
+
+.botonInicio{
+    padding:18px 40px;
+    background:#66c0f4;
+    color:black;
+    text-decoration:none;
+    border-radius:10px;
+    font-size:20px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.botonInicio:hover{
+    background:white;
+    transform:scale(1.08);
+}
