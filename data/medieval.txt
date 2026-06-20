@@ -16,5 +16,5 @@ Elden Ring;Medieval;50 GB;59.99;2022;img/eldenring.jpg
 The Elder Scrolls V: Skyrim;Medieval;12 GB;19.99;2011;img/skyrim.jpg
 Dragon Age Origins;Medieval;18 GB;9.99;2009;img/dao.jpg
 Dragon Age Inquisition;Medieval;40 GB;14.99;2014;img/dai.jpg
-Age of Empires II DE;Medieval;10 GB;19.99;2019;img/aoe2de.jpg
+Age of Empires II Definitve Edition;Medieval;10 GB;19.99;2019;img/aoe2de.jpg
 Chivalry Medieval Warfare;Medieval;8 GB;7.99;2012;img/chivalry1.jpg
